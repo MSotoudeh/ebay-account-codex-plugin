@@ -1,0 +1,41 @@
+{
+  "name": "ebay-account",
+  "version": "0.1.0",
+  "description": "Connect Codex and ChatGPT to an eBay account through OAuth-backed MCP tools.",
+  "author": {
+    "name": "MSotoudeh",
+    "email": "",
+    "url": "https://github.com/msotoudeh"
+  },
+  "homepage": "https://github.com/msotoudeh/ebay-account-codex-plugin",
+  "repository": "https://github.com/msotoudeh/ebay-account-codex-plugin",
+  "license": "MIT",
+  "keywords": [
+    "ebay",
+    "mcp",
+    "oauth"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "apps": "./.app.json",
+  "interface": {
+    "displayName": "eBay Account",
+    "shortDescription": "Connect to an eBay account with OAuth-backed MCP tools.",
+    "longDescription": "Local scaffold for eBay account access from Codex and ChatGPT. The first version should expose read-only MCP tools for account profile, inventory, and orders, then add mutating listing tools behind explicit confirmation.",
+    "developerName": "MSotoudeh",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/msotoudeh/ebay-account-codex-plugin",
+    "privacyPolicyURL": "https://github.com/msotoudeh/ebay-account-codex-plugin#security-model",
+    "termsOfServiceURL": "https://github.com/msotoudeh/ebay-account-codex-plugin#license",
+    "defaultPrompt": [
+      "Show the connected eBay account profile.",
+      "Find my active eBay listings.",
+      "Summarize recent eBay orders."
+    ],
+    "brandColor": "#E53238"
+  }
+}

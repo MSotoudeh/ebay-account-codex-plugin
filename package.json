@@ -1,0 +1,29 @@
+{
+  "name": "ebay-account-codex-plugin",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Codex and ChatGPT MCP plugin for connecting to an eBay account with OAuth-backed tools.",
+  "scripts": {
+    "start": "node scripts/server.mjs",
+    "smoke": "node scripts/smoke-test.mjs",
+    "check": "node --check scripts/server.mjs && node --check scripts/ebay-client.mjs && node --check scripts/smoke-test.mjs"
+  },
+  "keywords": [
+    "codex",
+    "chatgpt",
+    "mcp",
+    "ebay",
+    "oauth"
+  ],
+  "author": "MSotoudeh",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "express": "^5.2.1",
+    "zod": "^4.4.1"
+  }
+}
