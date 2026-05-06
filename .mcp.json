@@ -6,7 +6,7 @@
         "scripts/server.mjs"
       ],
       "env": {
-        "EBAY_ENV": "sandbox",
+        "EBAY_ENV": "production",
         "EBAY_MCP_HOST": "127.0.0.1",
         "EBAY_MCP_PORT": "4318"
       }
