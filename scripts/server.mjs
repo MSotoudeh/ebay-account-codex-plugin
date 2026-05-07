@@ -1,5 +1,5 @@
 import express from "express";
-import { randomBytes, randomUUID } from "node:crypto";
+import { createHash, randomBytes, randomUUID } from "node:crypto";
 import * as z from "zod/v4";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
@@ -70,7 +70,10 @@ function buildServer(config) {
       openWorldHint: false,
     },
   }, async () => {
-    const profile = await ebayGet(config, "/commerce/identity/v1/user/");
+    const identityBaseUrl = config.env === "production"
+      ? "https://apiz.ebay.com"
+      : "https://apiz.sandbox.ebay.com";
+    const profile = await ebayGet(config, `${identityBaseUrl}/commerce/identity/v1/user/`);
     return toToolResult(profile);
   });
 
@@ -481,6 +484,20 @@ function buildServer(config) {
   return server;
 }
 
+function marketplaceAccountDeletionChallenge(config, challengeCode) {
+  if (!config.marketplaceAccountDeletionVerificationToken) {
+    throw new Error("Missing EBAY_MARKETPLACE_ACCOUNT_DELETION_VERIFICATION_TOKEN.");
+  }
+  if (!config.marketplaceAccountDeletionEndpoint) {
+    throw new Error("Missing EBAY_MARKETPLACE_ACCOUNT_DELETION_ENDPOINT.");
+  }
+  return createHash("sha256")
+    .update(challengeCode)
+    .update(config.marketplaceAccountDeletionVerificationToken)
+    .update(config.marketplaceAccountDeletionEndpoint)
+    .digest("hex");
+}
+
 async function main() {
   const config = loadConfig();
   const app = express();
@@ -504,6 +521,25 @@ async function main() {
       mcp: "/mcp",
       login: "/auth/login",
     });
+  });
+
+  app.get("/ebay/marketplace-account-deletion", (req, res) => {
+    try {
+      const challengeCode = req.query.challenge_code;
+      if (!challengeCode) {
+        res.status(400).json({ error: "Missing challenge_code query parameter." });
+        return;
+      }
+      res.json({
+        challengeResponse: marketplaceAccountDeletionChallenge(config, String(challengeCode)),
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/ebay/marketplace-account-deletion", (_req, res) => {
+    res.status(204).end();
   });
 
   app.get("/auth/login", (req, res) => {

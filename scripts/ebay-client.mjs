@@ -35,6 +35,9 @@ export function loadConfig() {
       ? splitScopes(process.env.EBAY_SCOPES)
       : DEFAULT_SCOPES,
     tokenStorePath,
+    marketplaceAccountDeletionEndpoint: process.env.EBAY_MARKETPLACE_ACCOUNT_DELETION_ENDPOINT || "",
+    marketplaceAccountDeletionVerificationToken:
+      process.env.EBAY_MARKETPLACE_ACCOUNT_DELETION_VERIFICATION_TOKEN || "",
     authBaseUrl: isProduction
       ? "https://auth.ebay.com/oauth2/authorize"
       : "https://auth.sandbox.ebay.com/oauth2/authorize",
