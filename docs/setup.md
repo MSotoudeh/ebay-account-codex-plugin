@@ -218,4 +218,3 @@ Some tools may require additional eBay approval or scopes. If a call fails with 
 - your eBay app scopes
 - whether the account is allowed to use that API
 - whether the API is available in the selected marketplace
-
