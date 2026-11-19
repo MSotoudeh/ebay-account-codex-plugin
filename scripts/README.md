@@ -1,9 +1,7 @@
 # Scripts
 
-Scripts for this plugin:
+- `server.mjs`: Express + MCP server (`npm start`). Serves `/mcp`, `/healthz`, `/auth/login`, `/auth/callback`.
+- `ebay-client.mjs`: eBay OAuth and REST client used by the server.
+- `smoke-test.mjs`: starts the server, initializes an MCP session, lists tools and calls `ebay_connection_status` (`npm run smoke`). Does not call eBay.
 
-- `node plugins/ebay-account/scripts/server.mjs`: run the local MCP server.
-- `http://127.0.0.1:4318/auth/login`: start the eBay OAuth consent flow and store tokens securely.
-- `node plugins/ebay-account/scripts/smoke-test.mjs`: verify the MCP server starts and exposes tools.
-
-eBay app credentials and redirect URI details are still required before OAuth login can succeed.
+eBay app credentials and redirect URI details are required before OAuth login can succeed; see `../.env.example` and `../docs/setup.md`.
