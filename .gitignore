@@ -7,3 +7,10 @@ tokens.json
 coverage/
 .DS_Store
 Thumbs.db
+
+# Secrets, local state, worktrees
+secrets/
+.secrets/
+.env.*
+!.env.example
+.worktrees/
